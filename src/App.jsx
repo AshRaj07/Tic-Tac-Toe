@@ -9,7 +9,7 @@ const App = () => {
   const [history, sethistory] = useState([{board:Array(9).fill(null),isSetX:true}]);
   const [curMove, setcurMove] = useState(0)
   const {board,isSetX} = history[curMove];
-  const winner = Helper(board);
+  const {winner,winningSquares} = Helper(board);
   const handleSquareClick = (pos) => {
       if(board[pos]!=null||winner){
           return;
@@ -33,7 +33,10 @@ const App = () => {
     <div className="app">
       <h1>Tic Tac Toe</h1>
       <StatusMessage winner={winner} isSetX={isSetX} board={board} />
-      <Board board={board} handleSquareClick={handleSquareClick} />
+      <Board board={board} handleSquareClick={handleSquareClick} winningSquares={winningSquares} />
+      <button type="button" onClick={()=>{ 
+        setcurMove(0)
+        sethistory([{board:Array(9).fill(null),isSetX:true}])}}>Start New Game</button>
       <History history={history} moveTo={moveTo} curMove={curMove} />
     </div>
   );

@@ -12,10 +12,16 @@ const Helper = (board) => {
   for(let i=0;i<arr.length;i++){
     const [a,b,c] = arr[i];
     if(board[a]&&board[a]==board[b]&&board[a]==board[c]){
-        return board[a];
+        return {
+          winner : board[a],
+          winningSquares : [a,b,c]
+        }
     }
   }
-  return null;
+  return {
+    winner : null,
+    winningSquares : []
+  }
 }
 
 export default Helper
