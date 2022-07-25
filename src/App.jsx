@@ -31,13 +31,15 @@ const App = () => {
   }
   return (
     <div className="app">
-      <h1>Tic Tac Toe</h1>
+      <h1>Tic <span className="text-green">Tac</span> Toe</h1>
       <StatusMessage winner={winner} isSetX={isSetX} board={board} />
       <Board board={board} handleSquareClick={handleSquareClick} winningSquares={winningSquares} />
-      <button type="button" onClick={()=>{ 
+      <button className={`btn-reset ${winner?"active":""}`} type="button" onClick={()=>{ 
         setcurMove(0)
         sethistory([{board:Array(9).fill(null),isSetX:true}])}}>Start New Game</button>
+        <h2 style={{fontWeight:"normal"}}>Current Game History</h2>
       <History history={history} moveTo={moveTo} curMove={curMove} />
+      <div className="bg-balls" />
     </div>
   );
 };
