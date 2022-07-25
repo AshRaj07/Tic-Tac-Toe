@@ -2,15 +2,14 @@ import React,{useState} from "react";
 import Board from "./components/Board";
 import Helper from "./components/Helper";
 import History from "./components/History";
+import StatusMessage from "./components/StatusMessage";
 import "./styles/root.scss"
 
 const App = () => {
   const [history, sethistory] = useState([{board:Array(9).fill(null),isSetX:true}]);
   const [curMove, setcurMove] = useState(0)
   const {board,isSetX} = history[curMove];
-  console.log(history);
   const winner = Helper(board);
-  const message = winner?`Winner is ${winner}`:`${isSetX?"X":"O"}'s turn`
   const handleSquareClick = (pos) => {
       if(board[pos]!=null||winner){
           return;
@@ -33,7 +32,7 @@ const App = () => {
   return (
     <div className="app">
       <h1>Tic Tac Toe</h1>
-      <h2>{message}</h2>
+      <StatusMessage winner={winner} isSetX={isSetX} board={board} />
       <Board board={board} handleSquareClick={handleSquareClick} />
       <History history={history} moveTo={moveTo} curMove={curMove} />
     </div>
