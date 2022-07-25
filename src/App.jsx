@@ -4,24 +4,27 @@ import Helper from "./components/Helper";
 import "./styles/root.scss"
 
 const App = () => {
-  const [board, setboard] = useState(Array(9).fill(null));
-  const [isSetX, setisSetX] = useState(false)
-
+  const [history, sethistory] = useState([{board:Array(9).fill(null),isSetX:true}]);
+  const [curMove, setcurMove] = useState(0)
+  const {board,isSetX} = history[curMove];
+  console.log(history);
   const winner = Helper(board);
   const message = winner?`Winner is ${winner}`:`${isSetX?"X":"O"}'s turn`
   const handleSquareClick = (pos) => {
       if(board[pos]!=null||winner){
           return;
       }
-      setboard((prevState)=>{
-          return prevState.map((val,idx)=>{
+      sethistory((prevState)=>{
+        const {board,isSetX} = prevState[prevState.length-1];
+          const newBoard =  board.map((val,idx)=>{
               if(idx==pos){
                   return isSetX ? "X" : "O";
               }
               return val;
           })
+          return prevState.concat([{board:newBoard,isSetX:!isSetX}]);
       })
-      setisSetX(!isSetX);
+      setcurMove(curMove+1);
   }
   return (
     <div className="app">
