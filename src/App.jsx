@@ -1,6 +1,7 @@
 import React,{useState} from "react";
 import Board from "./components/Board";
 import Helper from "./components/Helper";
+import History from "./components/History";
 import "./styles/root.scss"
 
 const App = () => {
@@ -26,11 +27,15 @@ const App = () => {
       })
       setcurMove(curMove+1);
   }
+  const moveTo = (move) => {
+    setcurMove(move)
+  }
   return (
     <div className="app">
       <h1>Tic Tac Toe</h1>
       <h2>{message}</h2>
       <Board board={board} handleSquareClick={handleSquareClick} />
+      <History history={history} moveTo={moveTo} curMove={curMove} />
     </div>
   );
 };
